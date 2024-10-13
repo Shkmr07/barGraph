@@ -17,3 +17,5 @@ input[type='submit']{background-color: rgb(35, 197, 35);font-weight: bold;color:
 #prodBar{width: 600px; height: 300px; border-bottom: 2px solid black; border-left: 2px solid black; position: relative; display: flex; align-items: flex-end; gap: 5px; flex-wrap: wrap;}
 
 #xaxis{position: absolute; margin: 200px 0px 0px -700px;}
+
+#opt{padding: 5px; border-radius: 5px;}

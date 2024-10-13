@@ -5,6 +5,7 @@ let nameInput = document.getElementById('name')
 let priceInput = document.getElementById('price')
 let ratingInput = document.getElementById('rating')
 let prodForm = document.getElementById('prodForm')
+let selectTag = document.getElementById('opt')
 
 function openForm(){
     prodBtn.style.display='none'
@@ -47,7 +48,6 @@ function fetchProductData(){
         if(acc<el.price) acc = el.price
         return acc
     },0)
-    
 
     prodBar.innerHTML = ''
 
@@ -65,17 +65,31 @@ function createBar(item,maxPrice){
 }
 
 
+selectTag.addEventListener('change',()=>{
+    
+    let products = JSON.parse(localStorage.getItem('products')) || []
 
+    let maxPrice = products.reduce((acc,el)=>{
+        if(acc<el.price) acc = el.price
+        return acc
+    },0)
+
+    if(selectTag.value ==='price'){
+        products.sort((a,b)=>a.price-b.price)
+    }
+    else if (selectTag.value ==='rating'){
+        products.sort((a,b)=>a.rating-b.rating)
+    }
+
+    prodBar.innerHTML = ''
+
+    products.forEach(product=>{
+        prodBar.appendChild(createBar(product,maxPrice))
+    })
+
+})
+    
 prodForm.addEventListener('submit',formSubmit)
 
-
 fetchProductData()
-
-
-
-
-
-
-
     
-
