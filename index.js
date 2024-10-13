@@ -6,6 +6,7 @@ let priceInput = document.getElementById('price')
 let ratingInput = document.getElementById('rating')
 let prodForm = document.getElementById('prodForm')
 let selectTag = document.getElementById('opt')
+let xaxis = document.getElementById('xaxis')
 
 function openForm(){
     prodBtn.style.display='none'
@@ -60,7 +61,13 @@ function fetchProductData(){
 function createBar(item,maxPrice){
 
     let div = document.createElement('div')
-    div.style.cssText = `width:50px; height:${(200/maxPrice)*item.price}px; border: 1px solid black;background-color: #4CAF50;`
+    let pTag = document.createElement('p')
+    let st = selectTag.value
+
+    div.style.cssText = `width:50px; height:${(200/maxPrice)*item.price}px; border: 1px solid black;background-color: #4CAF50; position: relative;`
+    pTag.textContent = `${st==='price'?`$${item.price}`:st==='rating'?item.rating:`$${item.price}`}`
+    pTag.style.cssText = 'position: absolute;bottom: 0; color: white; text-align: center; width: 100%;'
+    div.appendChild(pTag)
     return div
 }
 
@@ -76,10 +83,13 @@ selectTag.addEventListener('change',()=>{
 
     if(selectTag.value ==='price'){
         products.sort((a,b)=>a.price-b.price)
+        xaxis.textContent = 'Prices'
     }
     else if (selectTag.value ==='rating'){
         products.sort((a,b)=>a.rating-b.rating)
+        xaxis.textContent = 'Ratings'
     }
+    else xaxis.textContent = 'Prices'
 
     prodBar.innerHTML = ''
 
